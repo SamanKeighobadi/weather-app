@@ -1,2 +1,3 @@
 # weather-app
-the simple weather app with React.js and tailwindcss 
+the simple weather app with React.js , tailwindcss and openweathermap API
+
