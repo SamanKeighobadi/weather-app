@@ -1,23 +1,24 @@
 import React, { useState } from "react";
 
-const SerachWeather = ({searchCity}) => {
-    const [text,setText] = useState("");
-    const onSubmit = (e) => {
-      e.preventDefault();
-      if(text === "") {
-        alert('You must enter your city')
-      }
-        searchCity(text)
-        
+const SerachWeather = ({ searchCity }) => {
+  //? initial states
+  const [text, setText] = useState("");
+  //? handel submit form
+  const onSubmit = (e) => {
+    e.preventDefault();
+    //* cheeck if text input empity or not
+    if (text === "") {
+      alert("You must enter your city");
     }
-   
+    searchCity(text);
+  };
+
   return (
     <div>
-    
       <form
         onSubmit={onSubmit}
         className="flex pt-5 justify-center"
-        onChange={e => setText(e.target.value)}
+        onChange={(e) => setText(e.target.value)}
       >
         <input
           type="text"

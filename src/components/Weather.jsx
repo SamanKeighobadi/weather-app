@@ -1,5 +1,7 @@
 import React from "react";
+//? Import PropTypes
 import PropTypes from "prop-types";
+//? Import Icons
 import {
   WiThunderstorm,
   WiRain,
@@ -10,6 +12,7 @@ import {
 import { BiCloudDrizzle } from "react-icons/bi";
 
 const Weather = ({ city, country, description, temp, weatherIcon }) => {
+  //! cheecking the status of weahter with id
   const GetWeatherIcon = (id) => {
     switch (true) {
       case id >= 200 && id <= 232:
