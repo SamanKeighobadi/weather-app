@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-
+//? import PropTypes
+import PropTypes from 'prop-types'
 const SerachWeather = ({ searchCity }) => {
   //? initial states
   const [text, setText] = useState("");
@@ -32,5 +33,10 @@ const SerachWeather = ({ searchCity }) => {
     </div>
   );
 };
+
+// Type Cheecking
+SerachWeather.prototype = {
+  searchCity:PropTypes.func
+}
 
 export default SerachWeather;
