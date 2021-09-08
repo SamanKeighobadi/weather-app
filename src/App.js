@@ -1,58 +1,23 @@
-import { useEffect, useState } from "react";
-//? Axios
-import axios from "axios";
+import { useState } from "react";
 //? TailwindCSS
 import "./assets/main.css";
 import "./assets/style.css";
 //? Import Components
 import SerachWeather from "./components/SerachWeather";
 import Weather from "./components/Weather";
+//? Import Custom Hook
+import useWeather from "./components/customHook/useWeather";
 
 function App() {
-  //? initialize states
-  const [city, setCity] = useState("");
-  const [country, setCountry] = useState("");
-  const [temp, setTemp] = useState(0);
-  const [description, setDescription] = useState("");
   const [searchCity, setSearchCity] = useState("");
-  const [weatherIcon, setWeatherIcon] = useState("");
 
-  //? convert the default tepm to clicus
-  const calcTemp = (temp) => {
-    let celsius = Math.floor(temp - 273.15);
-    return celsius;
-  };
+  const API_KEY = "dd683de53dd1cf8e70a116317403b95a";
+  const url = `https://api.openweathermap.org/data/2.5/weather?q=${searchCity}&appid=${API_KEY}`;
 
-  //? fetch Weahter data from API
-  const fetchWeatherApi = async () => {
-    const API_KEY = "dd683de53dd1cf8e70a116317403b95a";
-    const {data} = await axios
-      .get(
-        `https://api.openweathermap.org/data/2.5/weather?q=${searchCity}&appid=${API_KEY}`
-      )
-      .catch((err) => console.log(err));
-
-    try {
-      if (data.cod === 404) {
-        throw new Error();
-      }
-
-      if (searchCity) setCity(data.name);
-      //* set States
-      setCountry(data.sys.country);
-      setTemp(calcTemp(data.main.temp));
-      setDescription(data.weather[0].description);
-      setWeatherIcon(data.weather[0].id);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  useEffect(() => {
-    if (searchCity !== "") {
-      fetchWeatherApi();
-    }
-  }, [searchCity]);
+  const { city, country, description, temp, weatherIcon } = useWeather(
+    url,
+    searchCity
+  );
 
   return (
     <div className="container mx-auto  ">
