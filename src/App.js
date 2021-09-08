@@ -26,23 +26,23 @@ function App() {
   //? fetch Weahter data from API
   const fetchWeatherApi = async () => {
     const API_KEY = "dd683de53dd1cf8e70a116317403b95a";
-    const response = await axios
+    const {data} = await axios
       .get(
         `https://api.openweathermap.org/data/2.5/weather?q=${searchCity}&appid=${API_KEY}`
       )
       .catch((err) => console.log(err));
 
     try {
-      if (response.data.cod === 404) {
+      if (data.cod === 404) {
         throw new Error();
       }
 
-      if (searchCity) setCity(response.data.name);
+      if (searchCity) setCity(data.name);
       //* set States
-      setCountry(response.data.sys.country);
-      setTemp(calcTemp(response.data.main.temp));
-      setDescription(response.data.weather[0].description);
-      setWeatherIcon(response.data.weather[0].id);
+      setCountry(data.sys.country);
+      setTemp(calcTemp(data.main.temp));
+      setDescription(data.weather[0].description);
+      setWeatherIcon(data.weather[0].id);
     } catch (err) {
       console.log(err);
     }
